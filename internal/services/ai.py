@@ -45,4 +45,6 @@ async def create_item(prompt: Prompt):
     safe_input = ''.join(c for c in user_input if not (0xD800 <= ord(c) <= 0xDFFF))
     text = safe_input.strip()
     messages.append(HumanMessage(content=text))
-    return prompt
+    res = giga.invoke(messages)
+    messages.append(res)
+    return {"response": res.content}
