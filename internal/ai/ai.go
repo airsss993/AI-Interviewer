@@ -9,10 +9,10 @@ import (
 	"net/http"
 )
 
-func GetAIReply() string {
+func GetAIReply(prompt string) string {
 	postURL := "http://127.0.0.1:8000/chat"
-
-	body := models.RequestAI{Text: "Привет, расскажи о себе."}
+	
+	body := models.RequestAI{Text: prompt}
 
 	bodyBytes, _ := json.Marshal(&body)
 
@@ -34,6 +34,5 @@ func GetAIReply() string {
 		return ""
 	}
 
-	log.Printf("AI response: %v", respAI.Response)
-	return string(respAI.Response)
+	return respAI.Response
 }

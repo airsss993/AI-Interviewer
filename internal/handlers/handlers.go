@@ -82,7 +82,7 @@ func (h *MessageHandler) HandleMessage(msg *tgbotapi.Message) {
 		h.sendMessage(msg.Chat.ID, res)
 
 	default:
-		res := ai.GetAIReply()
+		res := ai.GetAIReply(msg.Text)
 		h.sendMessage(msg.Chat.ID, res)
 	}
 }
