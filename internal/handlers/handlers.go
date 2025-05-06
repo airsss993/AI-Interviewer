@@ -1,7 +1,9 @@
 package handlers
 
 import (
+	"AI_Interviewer/internal/ai"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
+	"log"
 )
 
 type UserSession struct {
@@ -21,6 +23,11 @@ func NewMessageHandler(botAPI *tgbotapi.BotAPI) *MessageHandler {
 }
 
 func (h *MessageHandler) sendMessage(chatID int64, text string) {
+	if text == "" {
+		log.Println("Warning: Attempted to send empty message. Skipping.")
+		return
+	}
+
 	msg := tgbotapi.NewMessage(chatID, text)
 	if _, err := h.botAPI.Send(msg); err != nil {
 		panic(err)
@@ -72,6 +79,10 @@ func (h *MessageHandler) HandleMessage(msg *tgbotapi.Message) {
 
 	case "/status":
 		res := "Вы еще не начали интервью. Введите /start для начала."
+		h.sendMessage(msg.Chat.ID, res)
+
+	default:
+		res := ai.GetAIReply()
 		h.sendMessage(msg.Chat.ID, res)
 	}
 }
