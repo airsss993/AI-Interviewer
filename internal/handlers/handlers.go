@@ -62,23 +62,23 @@ func (h *MessageHandler) HandleMessage(msg *tgbotapi.Message) {
 		h.sendMessage(msg.Chat.ID, res)
 
 	case "/stop":
-		res := "Интервью завершено. Если хотите начать заново, введите /start."
+		res := ai.GetAIReply(msg.Text)
 		h.sendMessage(msg.Chat.ID, res)
 
 	case "/next":
-		res := "Вот ваш следующий вопрос: Как вы решаете сложные задачи?"
+		res := ai.GetAIReply(msg.Text)
 		h.sendMessage(msg.Chat.ID, res)
 
 	case "/score":
-		res := "Вы можете получить свой результат в конце интервью, когда все вопросы будут пройдены. Введите /next для следующего вопроса."
+		res := ai.GetAIReply(msg.Text)
 		h.sendMessage(msg.Chat.ID, res)
 
 	case "/restart":
-		res := "Интервью начинается заново. Введите /next для первого вопроса."
+		res := ai.GetAIReply(msg.Text)
 		h.sendMessage(msg.Chat.ID, res)
 
 	case "/status":
-		res := "Вы еще не начали интервью. Введите /start для начала."
+		res := ai.GetAIReply(msg.Text)
 		h.sendMessage(msg.Chat.ID, res)
 
 	default:
